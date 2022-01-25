@@ -22,7 +22,7 @@ This bot hardly has any requirements. All you need is:
 - A text editor or an IDE
 
 ## Setting it up
-Setting this bot up is super simple! Just copy the token from Discord developer page and on line 15 of index.js, paste the token between the brackets and "", like this:
+Setting this bot up is super simple! First of all, fire up your terminal and type in `npm i` and wait for the libraries to install. Then, copy the token from Discord developer page and on line 15 of index.js, paste the token between the brackets and "", like this:
 ```javascript
 client.login("GAC3MTM4NDg2NjIwNTIwNDQ4.GBHacd.y1GHAC-86Dn4QVChovI8o2U-iBR"); //this token here doesnt really work
 ```
