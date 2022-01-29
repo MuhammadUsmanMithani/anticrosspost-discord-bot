@@ -1,22 +1,23 @@
 //preprepping
 const Discord = require("discord.js");
+const {bot, messages, ignoredItems} = require("./config.json");
 const stringSimilarity = require("string-similarity");
 const {inspect} = require("util");
-const channelsNotToCheck = ["id1","id2"]; // pretty easy to understand
-const rolesNotToCheck = ["id1","id2"]; // ^^^^^^^^^^^
+
+
+//creating the bot
 const client = new Discord.Client({
     partials: ["MESSAGE"],
     presence: {
 	    status: "online",
-	    activities: [{ name: "crossposters", type: "WATCHING" }],
+	    activities: [{ name: bot.statusActivity || "crossposters", type: "WATCHING" }],
 	},
     intents: ["GUILD_MESSAGES", "GUILDS"],
 });
-client.login("TOKEN"); //im not using any external config file, but you can if you want
+client.login(bot.TOKEN);
 client.once("ready", () => {
     console.log(`Logged in as ${client.user.tag}!`);
 })
-let timeToRemoveValue = 10*60000; //time to remove message from array
 
 // random hex id generator
 const idGen = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
@@ -41,8 +42,8 @@ function removeMessage(userId, id, channelId) {
 //message handler
 client.on("messageCreate", async message => {
     if (message.author.bot || !message.content) return;
-    if (channelsNotToCheck.includes(message.channel.id) || message.content.length <15) return; // remove message.content.length < 15 if you want to check smaller messages for crossposting
-    if (rolesNotToCheck.some(role => message.member.roles.cache.has(role))) return;
+    if (ignoredItems.channels.includes(message.channel.id) || message.content.length < messages.mininmumLength) return; // remove message.content.length < 15 if you want to check smaller messages for crossposting
+    if (ignoredItems.roles.some(role => message.member.roles.cache.has(role))) return;
     //to not affect ^^^^
     const id = idGen(8);
     if (!crosspostChecker.some(crosspost => crosspost.userId == message.author.id)) {
@@ -52,12 +53,12 @@ client.on("messageCreate", async message => {
         });
         setTimeout(() => {
             removeMessage(message.author.id, id, message.channel.id);
-        }, timeToRemoveValue);
+        }, messages.timeToLive);
         return;
     }
     let index = crosspostChecker.map(object=> object.userId).indexOf(message.author.id);
     let prevMsgs = crosspostChecker[index].messages.filter(msg => msg.channelId !== message.channel.id) //remove .filter(message => message.channelId !== message.channelId) if you want it to check messages in the same channel too
-    let prevMsg = prevMsgs.filter(msg => stringSimilarity.compareTwoStrings(message.content, msg.message) > 0.7);
+    let prevMsg = prevMsgs.filter(msg => stringSimilarity.compareTwoStrings(message.content, msg.message) > messages.similarityValue);
     if (prevMsg.length > 0) {
     const similarityRatio = stringSimilarity.compareTwoStrings(message.content, prevMsg[0].message);
         let msg = await message.reply({embeds: [{
@@ -78,7 +79,7 @@ client.on("messageCreate", async message => {
     crosspostChecker[index].messages.push({id: id , channelId: message.channel.id, message: message.content});
     setTimeout(() => {
         removeMessage(message.author.id, id, message.channel.id);
-    }, timeToRemoveValue);
+    }, messages.timeToLive);
 });
 
 

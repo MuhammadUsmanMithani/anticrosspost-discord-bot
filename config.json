@@ -1,0 +1,15 @@
+{
+    "bot":{
+        "TOKEN": "YOUR_TOKEN",
+        "statusActivity": "crossposters"
+    },
+    "messages":{
+        "timeToLive": 600000,
+        "mininmumLength": 15,
+        "similarityRatio": 0.7
+    },
+    "ignoredItems": {
+        "roles": ["id1","id2"],
+        "channels": ["id1","id2"]
+    }
+}
