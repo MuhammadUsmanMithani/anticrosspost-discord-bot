@@ -28,7 +28,7 @@ Setting this bot up is super simple! First of all, fire up your terminal and typ
 ```
 Then in your terminal, type in `node index.js`, and viola, its up and running!
 
-**NOTE: i did not add any error handling since this bot is not meant to be a multi-server bot, and other servers will have to give this bot `ADMINISTRATOR` permissions for smoothest experience so that it does not crash. If you do not, and it is unable to delete the message or send back a message, it will crash! You can add the error handling yourself if you want** ​
+**NOTE: i did not add any error handling since this bot is not meant to be a multi-server bot, and other servers will have to give this bot `ADMINISTRATOR` permissions for smoothest experience so that it does not crash. If you do not, and it is unable to delete the message or send back a message, it will crash! You can add the error handling yourself if you want**
 
 ---
 
@@ -47,7 +47,7 @@ Example:
 "channels":["123456789012345678","8383939293883288283"]
 ```
 
-### How can we make it such, that it affects older messages too, say sent around 30 minutes ago?
+### How can we make it such, that it affects older messages too, say, sent around 30 minutes ago?
 **Ans:** Super easy! Go to `config.json` and set `messages.timeToLive` accordingly (in milliseconds). `600000` means 10 minutes but in milliseconds, but for 30 minutes, you can change it to `1800000`, and thats it!
 
 ### The bot is not affecting similar messages in cross-posts/Why is the bot affecting non-similar messages?
@@ -56,6 +56,9 @@ Example:
 
 ### How to change minimum message length for the bot to affect?
 **Ans:** Change `messages.minimumLength` accordingly in `config.json`, or change the value to 0 if you want to check all types of messages for cross-posts. Change `15` to a smaller value if you want to reduce the minimum message length value
+
+### Can I change the status activity from "Watching crossposters" to something else, say, "Watching some people"?
+**Ans:** No problem! in `config.json`, change `bot.statusActivity` to whatever you want!
 
 ### NOTE: After every change in config.json file, you will need to restart the bot or it will not load the new configuration. Also, do not leave any value empty or invalid or the bot will break!
 
