@@ -16,7 +16,7 @@ This bot hardly has any requirements. All you need is:
 
 - A discord bot on [**the Discord developer page**](https://discord.com/developers/applications/)
 - A host capable of running a Discord bot
-- [**Node.JS v16.6**](https://nodejs.org/) minimum
+- [**Node.JS v16.9.0**](https://nodejs.org/) minimum
 - Slight know-how of Javascript and JSON, if you want to do some basic configuration like whitelisting roles/channels
 - Dev-mode on in Discord, for some basic configuration like whitelisting roles/channels
 - A text editor or an IDE
