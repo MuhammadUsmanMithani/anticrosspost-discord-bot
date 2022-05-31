@@ -34,7 +34,7 @@ Then in your terminal, type in `node index.js`, and viola, its up and running!
 
 ## FAQ
 
-### How do I stop the bot from affecting moderators/certain people
+### How do I stop the bot from affecting moderators/certain people?
 **Ans:** Simple! Just copy the role IDs, and in `config.json`, you can add them into the array given in `ignoredItems.roles` (Dev-mode enabled is a requirement). <br> Example:
 ```json
 "roles":["123456789012345678","8383939293883288283"]
